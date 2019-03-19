@@ -1,0 +1,171 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "trasier-ng": {
+      "root": "projects/trasier-ng",
+      "sourceRoot": "projects/trasier-ng/src",
+      "projectType": "library",
+      "prefix": "trasier",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/trasier-ng/tsconfig.lib.json",
+            "project": "projects/trasier-ng/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/trasier-ng/src/test.ts",
+            "tsConfig": "projects/trasier-ng/tsconfig.spec.json",
+            "karmaConfig": "projects/trasier-ng/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/trasier-ng/tsconfig.lib.json",
+              "projects/trasier-ng/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "trasier-ng-test-app": {
+      "root": "projects/trasier-ng-test-app/",
+      "sourceRoot": "projects/trasier-ng-test-app/src",
+      "projectType": "application",
+      "prefix": "app",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/trasier-ng-test-app",
+            "index": "projects/trasier-ng-test-app/src/index.html",
+            "main": "projects/trasier-ng-test-app/src/main.ts",
+            "polyfills": "projects/trasier-ng-test-app/src/polyfills.ts",
+            "tsConfig": "projects/trasier-ng-test-app/tsconfig.app.json",
+            "assets": [
+              "projects/trasier-ng-test-app/src/favicon.ico",
+              "projects/trasier-ng-test-app/src/assets"
+            ],
+            "styles": [
+              "projects/trasier-ng-test-app/src/styles.css"
+            ],
+            "scripts": [],
+            "es5BrowserSupport": true
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/trasier-ng-test-app/src/environments/environment.ts",
+                  "with": "projects/trasier-ng-test-app/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "trasier-ng-test-app:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "trasier-ng-test-app:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "trasier-ng-test-app:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/trasier-ng-test-app/src/test.ts",
+            "polyfills": "projects/trasier-ng-test-app/src/polyfills.ts",
+            "tsConfig": "projects/trasier-ng-test-app/tsconfig.spec.json",
+            "karmaConfig": "projects/trasier-ng-test-app/karma.conf.js",
+            "styles": [
+              "projects/trasier-ng-test-app/src/styles.css"
+            ],
+            "scripts": [],
+            "assets": [
+              "projects/trasier-ng-test-app/src/favicon.ico",
+              "projects/trasier-ng-test-app/src/assets"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/trasier-ng-test-app/tsconfig.app.json",
+              "projects/trasier-ng-test-app/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "trasier-ng-test-app-e2e": {
+      "root": "projects/trasier-ng-test-app-e2e/",
+      "projectType": "application",
+      "prefix": "",
+      "architect": {
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/trasier-ng-test-app-e2e/protractor.conf.js",
+            "devServerTarget": "trasier-ng-test-app:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "trasier-ng-test-app:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": "projects/trasier-ng-test-app-e2e/tsconfig.e2e.json",
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "trasier-ng"
+}
