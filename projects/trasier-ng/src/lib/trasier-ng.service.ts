@@ -14,9 +14,6 @@ export class TrasierNgService {
 
   private readonly TRASIER_CONVERSATION_KEY = 'trasier-conversation';
 
-  constructor() {
-  }
-
   public initConversation(): void {
     const conversation = {
       conversationId: UUID.UUID(),
