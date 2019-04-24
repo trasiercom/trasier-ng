@@ -1,14 +1,12 @@
-import {HTTP_INTERCEPTORS, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
-import {ClassProvider, Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
-import {TrasierNgService} from './trasier-ng.service';
-import {TRASIER_HEADERS} from './trasier-headers';
+import { HTTP_INTERCEPTORS, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import { ClassProvider, Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { TrasierNgService } from './trasier-ng.service';
+import { TRASIER_HEADERS } from './trasier-headers';
 
 @Injectable()
 export class TrasierNgInterceptor implements HttpInterceptor {
-
-  constructor(private trasierService: TrasierNgService) {
-  }
+  constructor(private trasierService: TrasierNgService) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const conversation = this.trasierService.getConversation();
@@ -19,12 +17,12 @@ export class TrasierNgInterceptor implements HttpInterceptor {
       .append(TRASIER_HEADERS.HEADER_CONVERSATION_ID, conversation.conversationId)
       .append(TRASIER_HEADERS.HEADER_TRACE_ID, conversation.traceId)
       .append(TRASIER_HEADERS.HEADER_SPAN_ID, conversation.spanId);
-    return next.handle(req.clone({headers}));
+    return next.handle(req.clone({ headers }));
   }
 }
 
 export const TRASIER_INTERCEPTOR: ClassProvider = {
   provide: HTTP_INTERCEPTORS,
   useClass: TrasierNgInterceptor,
-  multi: true,
+  multi: true
 };

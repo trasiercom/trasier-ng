@@ -1,7 +1,7 @@
-import {Component} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {TrasierNgService} from '../../../trasier-ng/src/lib/trasier-ng.service';
-import {Observable} from 'rxjs';
+import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { TrasierNgService } from '../../../trasier-ng/src/lib/trasier-ng.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -9,12 +9,11 @@ import {Observable} from 'rxjs';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-
-  private readonly TEST_URL = 'https://gorest.co.in/public-api/users?_format=json&access-token=UepAWmHwesfEDwfGW1_TWfh5VTlSHKV45oaA';
+  private readonly TEST_URL =
+    'https://gorest.co.in/public-api/users?_format=json&access-token=UepAWmHwesfEDwfGW1_TWfh5VTlSHKV45oaA';
   public results$: Observable<any>;
 
-  constructor(private http: HttpClient, private trasierService: TrasierNgService) {
-  }
+  constructor(private http: HttpClient, private trasierService: TrasierNgService) {}
 
   public initConversation(): void {
     this.trasierService.initConversation();

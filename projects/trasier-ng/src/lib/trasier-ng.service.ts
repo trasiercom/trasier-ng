@@ -1,5 +1,5 @@
-import {Injectable} from '@angular/core';
-import {UUID} from 'angular2-uuid';
+import { Injectable } from '@angular/core';
+import { UUID } from 'angular2-uuid';
 
 interface TrasierConversation {
   conversationId: string;
@@ -11,7 +11,6 @@ interface TrasierConversation {
   providedIn: 'root'
 })
 export class TrasierNgService {
-
   private readonly TRASIER_CONVERSATION_KEY = 'trasier-conversation';
 
   public initConversation(): void {
@@ -31,5 +30,4 @@ export class TrasierNgService {
   public endConversation(): void {
     sessionStorage.removeItem(this.TRASIER_CONVERSATION_KEY);
   }
-
 }

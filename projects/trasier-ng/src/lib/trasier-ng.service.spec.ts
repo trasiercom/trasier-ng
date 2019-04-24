@@ -1,11 +1,10 @@
-import {TrasierNgService} from './trasier-ng.service';
-import {UUID} from 'angular2-uuid';
+import { TrasierNgService } from './trasier-ng.service';
+import { UUID } from 'angular2-uuid';
 
 describe('TrasierNgService', () => {
-
   let sut: TrasierNgService;
 
-  beforeEach(() => sut = new TrasierNgService());
+  beforeEach(() => (sut = new TrasierNgService()));
 
   it('should genereate three new UUIDs (conversationId, traceId, spanId)', () => {
     const uuidSpy = spyOn(UUID, 'UUID');
@@ -34,7 +33,7 @@ describe('TrasierNgService', () => {
   });
 
   it('should return the parsed value from the session storage', () => {
-    const conversation = {conversationId: 'conversationIdMock'};
+    const conversation = { conversationId: 'conversationIdMock' };
     spyOn(sessionStorage, 'getItem').and.returnValue(JSON.stringify(conversation));
     expect(sut.getConversation()).toEqual(conversation);
   });
@@ -44,6 +43,4 @@ describe('TrasierNgService', () => {
     sut.endConversation();
     expect(sessionStorage.removeItem).toHaveBeenCalled();
   });
-
-
 });

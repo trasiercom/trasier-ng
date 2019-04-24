@@ -1,25 +1,22 @@
-import {TRASIER_INTERCEPTOR, TrasierNgInterceptor} from './trasier-ng.interceptor';
-import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
-import {TestBed} from '@angular/core/testing';
-import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {TrasierNgService} from './trasier-ng.service';
-import {TRASIER_HEADERS} from './trasier-headers';
-import {Injectable} from '@angular/core';
+import { TRASIER_INTERCEPTOR, TrasierNgInterceptor } from './trasier-ng.interceptor';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { TestBed } from '@angular/core/testing';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { TrasierNgService } from './trasier-ng.service';
+import { TRASIER_HEADERS } from './trasier-headers';
+import { Injectable } from '@angular/core';
 
 describe('TrasierNgInterceptor', () => {
-
   let httpMock: HttpTestingController;
   let testService: TestService;
   let trasierService: TrasierNgService;
 
   @Injectable()
   class TestService {
-
     readonly TEST_URL = 'https://test.com';
 
-    constructor(private http: HttpClient) {
-    }
+    constructor(private http: HttpClient) {}
 
     public getResource(): Observable<any> {
       return this.http.get(this.TEST_URL);
@@ -29,7 +26,7 @@ describe('TrasierNgInterceptor', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [TRASIER_INTERCEPTOR, TestService, TrasierNgService],
+      providers: [TRASIER_INTERCEPTOR, TestService, TrasierNgService]
     });
     httpMock = TestBed.get(HttpTestingController);
     testService = TestBed.get(TestService);
@@ -40,7 +37,7 @@ describe('TrasierNgInterceptor', () => {
     const conversationId = 'mockedConversationId';
     const traceId = 'traceId';
     const spanId = 'spanId';
-    const conversation = {conversationId, traceId, spanId};
+    const conversation = { conversationId, traceId, spanId };
     spyOn(trasierService, 'getConversation').and.returnValue(conversation);
 
     testService.getResource().subscribe();
@@ -61,5 +58,4 @@ describe('TrasierNgInterceptor', () => {
     expect(httpRequest.request.headers.get(TRASIER_HEADERS.HEADER_TRACE_ID)).toBeNull();
     expect(httpRequest.request.headers.get(TRASIER_HEADERS.HEADER_SPAN_ID)).toBeNull();
   });
-
 });
