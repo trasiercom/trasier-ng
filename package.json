@@ -1,18 +1,22 @@
 {
   "name": "trasier-ng",
-  "version": "0.0.0",
+  "version": "0.0.0-development",
   "scripts": {
     "ng": "ng",
+    "build": "ng build",
+    "build:lib": "npm run copy:readme && ng build trasier-ng",
+    "copy:readme": "copyfiles ./README.md ./projects/trasier-ng",
+    "lint": "ng lint",
     "format:check": "prettier --list-different 'projects/**/*.ts'",
     "format:write": "prettier --write 'projects/**/*.ts'",
     "start": "ng serve",
-    "build": "ng build",
     "test": "ng test",
     "test:lib": "",
     "test:lib:coverage": "ng test ng-sortgrid --code-coverage --watch=false",
     "report-coverage:lib": "cat ./coverage/ng-sortgrid/lcov.info | codecov",
-    "lint": "ng lint",
-    "e2e": "ng e2e"
+    "publish:lib": "cd dist/ng-sortgrid && npx semantic-release",
+    "e2e": "ng e2e",
+    "semantic-release": "semantic-release"
   },
   "private": true,
   "dependencies": {
@@ -40,6 +44,7 @@
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "~8.9.4",
     "codelyzer": "~4.5.0",
+    "copyfiles": "^2.1.0",
     "husky": "^1.3.1",
     "jasmine-core": "~2.99.1",
     "jasmine-spec-reporter": "~4.2.1",
@@ -52,6 +57,7 @@
     "ng-packagr": "^4.2.0",
     "prettier": "^1.17.0",
     "protractor": "~5.4.0",
+    "semantic-release": "^15.13.3",
     "ts-node": "~7.0.0",
     "tsickle": ">=0.34.0",
     "tslib": "^1.9.0",
@@ -68,5 +74,9 @@
       "prettier --write",
       "git add"
     ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/trasiercom/trasier-ng.git"
   }
 }
