@@ -11,7 +11,7 @@
     "format:write": "prettier --write 'projects/**/*.ts'",
     "start": "ng serve",
     "test": "ng test",
-    "test:lib": "",
+    "test:lib": "ng test trasier-ng",
     "test:lib:coverage": "ng test trasier-ng --code-coverage --watch=false",
     "report-coverage:lib": "cat ./coverage/trasier-ng/lcov.info | codecov",
     "publish:lib": "cd dist/trasier-ng && npx semantic-release",

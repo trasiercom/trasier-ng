@@ -35,7 +35,7 @@ describe('TrasierNgService', () => {
   it('should return the parsed value from the session storage', () => {
     const conversation = { conversationId: 'conversationIdMock' };
     spyOn(sessionStorage, 'getItem').and.returnValue(JSON.stringify(conversation));
-    expect(sut.getConversation()).toEqual(conversation);
+    expect(sut.getConversation() as any).toEqual(conversation);
   });
 
   it('should delete the item from the session storage', () => {
