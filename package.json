@@ -12,9 +12,9 @@
     "start": "ng serve",
     "test": "ng test",
     "test:lib": "",
-    "test:lib:coverage": "ng test ng-sortgrid --code-coverage --watch=false",
-    "report-coverage:lib": "cat ./coverage/ng-sortgrid/lcov.info | codecov",
-    "publish:lib": "cd dist/ng-sortgrid && npx semantic-release",
+    "test:lib:coverage": "ng test trasier-ng --code-coverage --watch=false",
+    "report-coverage:lib": "cat ./coverage/trasier-ng/lcov.info | codecov",
+    "publish:lib": "cd dist/trasier-ng && npx semantic-release",
     "e2e": "ng e2e",
     "semantic-release": "semantic-release"
   },
