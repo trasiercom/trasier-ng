@@ -3,3 +3,4 @@
  */
 
 export * from './lib/trasier-ng.service';
+export * from './lib/trasier-ng.interceptor';

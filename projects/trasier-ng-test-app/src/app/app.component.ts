@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { TrasierNgService } from '../../../trasier-ng/src/lib/trasier-ng.service';
 import { Observable } from 'rxjs';
@@ -8,15 +8,19 @@ import { Observable } from 'rxjs';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   private readonly TEST_URL =
     'https://gorest.co.in/public-api/users?_format=json&access-token=UepAWmHwesfEDwfGW1_TWfh5VTlSHKV45oaA';
   public results$: Observable<any>;
 
   constructor(private http: HttpClient, private trasierService: TrasierNgService) {}
 
-  public initConversation(): void {
-    this.trasierService.initConversation();
+  ngOnInit(): void {
+    this.trasierService.init('trasier-test');
+  }
+
+  public startConversation(): void {
+    this.trasierService.startConversation();
   }
 
   public endConveresation(): void {

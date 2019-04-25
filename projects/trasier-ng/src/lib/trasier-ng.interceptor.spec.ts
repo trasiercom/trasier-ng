@@ -35,17 +35,26 @@ describe('TrasierNgInterceptor', () => {
 
   it('should append the headers if the trasierService returns a conversation', () => {
     const conversationId = 'mockedConversationId';
-    const traceId = 'traceId';
-    const spanId = 'spanId';
-    const conversation = { conversationId, traceId, spanId };
+    const systemName = 'trasier-test-client';
+    const conversation = { conversationId, systemName };
     spyOn(trasierService, 'getConversation').and.returnValue(conversation);
 
     testService.getResource().subscribe();
     const httpRequest = httpMock.expectOne(testService.TEST_URL);
 
     expect(httpRequest.request.headers.get(TRASIER_HEADERS.HEADER_CONVERSATION_ID)).toBe(conversationId);
-    expect(httpRequest.request.headers.get(TRASIER_HEADERS.HEADER_TRACE_ID)).toBe(traceId);
-    expect(httpRequest.request.headers.get(TRASIER_HEADERS.HEADER_SPAN_ID)).toBe(spanId);
+    expect(httpRequest.request.headers.get(TRASIER_HEADERS.INCOMING_ENDPOINT_NAME)).toBe(systemName);
+  });
+
+  it('should not append the incoming endpoint header if the trasierService does not return a incoming header in the conversation', () => {
+    const conversationId = 'mockedConversationId';
+    spyOn(trasierService, 'getConversation').and.returnValue({ conversationId });
+
+    testService.getResource().subscribe();
+    const httpRequest = httpMock.expectOne(testService.TEST_URL);
+
+    expect(httpRequest.request.headers.get(TRASIER_HEADERS.HEADER_CONVERSATION_ID)).toBe(conversationId);
+    expect(httpRequest.request.headers.get(TRASIER_HEADERS.INCOMING_ENDPOINT_NAME)).toBeNull();
   });
 
   it('should not append any headers if the trasierService does not return a conversation', () => {
@@ -55,7 +64,6 @@ describe('TrasierNgInterceptor', () => {
     const httpRequest = httpMock.expectOne(testService.TEST_URL);
 
     expect(httpRequest.request.headers.get(TRASIER_HEADERS.HEADER_CONVERSATION_ID)).toBeNull();
-    expect(httpRequest.request.headers.get(TRASIER_HEADERS.HEADER_TRACE_ID)).toBeNull();
-    expect(httpRequest.request.headers.get(TRASIER_HEADERS.HEADER_SPAN_ID)).toBeNull();
+    expect(httpRequest.request.headers.get(TRASIER_HEADERS.INCOMING_ENDPOINT_NAME)).toBeNull();
   });
 });
