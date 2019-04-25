@@ -1,3 +1,7 @@
+[![Travis build badge](https://img.shields.io/travis/trasiercom/trasier-ng.svg)](https://travis-ci.org/kreuzerk/ng-sortgrid)
+[![codecov](https://codecov.io/gh/trasiercom/trasier-ng/branch/master/graph/badge.svg)](https://codecov.io/gh/kreuzerk/ng-sortgrid)
+[![angular7](https://img.shields.io/badge/angular%207%20ready-true-green.svg)]()
+
 # TrasierNg
 
 Angular client for the Trasier system. Trasier is a Data as a Service platform that gives a quick insight into messages exchanged by software services across teams, projects or even companies. It can be used in Software development, bug-, performance-, business- analysis and integration testing. [Find out more on our official webpage](https://trasier.com/#/)
