@@ -1,5 +1,4 @@
 export const TRASIER_HEADERS = {
-  HEADER_CONVERSATION_ID: 'X-Conversation-Id',
-  HEADER_TRACE_ID: 'X-Trace-Id',
-  HEADER_SPAN_ID: 'X-Span-Id'
+  HEADER_CONVERSATION_ID: 'x-conversation-id',
+  INCOMING_ENDPOINT_NAME: 'x-incoming-endpoint-name'
 };

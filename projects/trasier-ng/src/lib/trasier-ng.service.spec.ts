@@ -6,25 +6,38 @@ describe('TrasierNgService', () => {
 
   beforeEach(() => (sut = new TrasierNgService()));
 
-  it('should genereate three new UUIDs (conversationId, traceId, spanId)', () => {
-    const uuidSpy = spyOn(UUID, 'UUID');
-    sut.initConversation();
-    expect(uuidSpy).toHaveBeenCalledTimes(3);
+  it('should not store a systemname if init was not called', () => {
+    const trasierConversationKey = 'trasier-conversation';
+    const mockedUUID = 'e41ed90b-4820-6e95-6c4d-99bee706974b';
+    spyOn(UUID, 'UUID').and.returnValue(mockedUUID);
+    spyOn(sessionStorage, 'setItem');
+
+    sut.startConversation();
+    expect(sessionStorage.setItem).toHaveBeenCalledWith(
+      trasierConversationKey,
+      JSON.stringify({ conversationId: mockedUUID })
+    );
   });
 
-  it('should store and object with the conversationId, traceId and spanId in the sessionStorage', () => {
-    const uuidMock = 'aa3c8af1-1fec-0a74-c52c-5cb529b3ff3f';
-    const setItemSpy = spyOn(sessionStorage, 'setItem');
-    const uuidSpy = spyOn(UUID, 'UUID');
-    uuidSpy.and.returnValue(uuidMock);
-    const expectedItem = JSON.stringify({
-      conversationId: uuidMock,
-      traceId: uuidMock,
-      spanId: uuidMock
-    });
+  it('should store the systemname if init was called', () => {
+    const trasierConversationKey = 'trasier-conversation';
+    const systemName = 'trasier-test-client';
+    const mockedUUID = 'e41ed90b-4820-6e95-6c4d-99bee706974b';
+    spyOn(UUID, 'UUID').and.returnValue(mockedUUID);
+    spyOn(sessionStorage, 'setItem');
 
-    sut.initConversation();
-    expect(setItemSpy).toHaveBeenCalledWith('trasier-conversation', expectedItem);
+    sut.init(systemName);
+    sut.startConversation();
+    expect(sessionStorage.setItem).toHaveBeenCalledWith(
+      trasierConversationKey,
+      JSON.stringify({ conversationId: mockedUUID, systemName })
+    );
+  });
+
+  it('should genereate three a new conversationId', () => {
+    const uuidSpy = spyOn(UUID, 'UUID');
+    sut.startConversation();
+    expect(uuidSpy).toHaveBeenCalledTimes(1);
   });
 
   it('should return null if the session storage does not contain a conversation', () => {

@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { UUID } from 'angular2-uuid';
 
-interface TrasierConversation {
+export interface TrasierConversation {
   conversationId: string;
-  traceId: string;
-  spanId: string;
+  systemName: string;
 }
 
 @Injectable({
@@ -12,14 +11,18 @@ interface TrasierConversation {
 })
 export class TrasierNgService {
   private readonly TRASIER_CONVERSATION_KEY = 'trasier-conversation';
+  private systemName;
 
-  public initConversation(): void {
-    const conversation = {
-      conversationId: UUID.UUID(),
-      traceId: UUID.UUID(),
-      spanId: UUID.UUID()
-    };
-    sessionStorage.setItem(this.TRASIER_CONVERSATION_KEY, JSON.stringify(conversation));
+  public init(name: string) {
+    this.systemName = name;
+  }
+
+  public startConversation(): void {
+    const conversationId = UUID.UUID();
+    sessionStorage.setItem(
+      this.TRASIER_CONVERSATION_KEY,
+      JSON.stringify({ conversationId, systemName: this.systemName })
+    );
   }
 
   public getConversation(): TrasierConversation | null {
